@@ -82,6 +82,12 @@ module.exports = ({ config }) => {
             'ლოკაცია საჭიროა კოორდინატების სერვერზე გასაგზავნად.',
         },
       ],
+      ...(process.env.GOOGLE_MAPS_API_KEY
+        ? [[
+            'react-native-maps',
+            { androidGoogleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY },
+          ]]
+        : []),
     ],
   };
 

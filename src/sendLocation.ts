@@ -4,7 +4,7 @@ import { API_BASE_URL } from './config';
 const TIMEOUT_MS = 20_000;
 const API_ROOT = `${API_BASE_URL.replace(/\/+$/, '')}/api/v1`;
 
-async function request(url: string, method: 'PATCH' | 'POST', body: unknown): Promise<Response> {
+async function request(url: string, method: 'PATCH' | 'PUT', body: unknown): Promise<Response> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
   try {
@@ -44,7 +44,7 @@ export async function updateLocationSharing(deviceId: string, enabled: boolean):
 export async function sendLocation(payload: LocationPayload): Promise<string> {
   const response = await request(
     `${API_ROOT}/devices/${encodeURIComponent(payload.device_id)}/location/`,
-    'POST',
+    'PUT',
     {
       latitude: payload.latitude,
       longitude: payload.longitude,

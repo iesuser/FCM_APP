@@ -5,6 +5,7 @@ import {
   AppState,
   Linking,
   Platform,
+  Pressable,
   ScrollView,
   StyleSheet,
   Switch,
@@ -13,7 +14,7 @@ import {
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { useFocusEffect } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import * as Location from 'expo-location';
 
 import {
@@ -271,6 +272,18 @@ export default function SettingsScreen() {
             </View>
             {notificationsError ? <Text style={styles.error}>{notificationsError}</Text> : null}
           </View>
+
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>შეტყობინების არეალი</Text>
+            <Text style={styles.meta}>მონიშნე რუკაზე არეალი და აირჩიე მინიმალური მაგნიტუდა.</Text>
+            <Pressable
+              accessibilityRole="button"
+              onPress={() => router.push('/area')}
+              style={({ pressed }) => [styles.areaButton, pressed && styles.areaButtonPressed]}
+            >
+              <Text style={styles.areaButtonText}>მონიშნე არეალი</Text>
+            </Pressable>
+          </View>
         </ScrollView>
       </SafeAreaView>
     </SafeAreaProvider>
@@ -297,4 +310,7 @@ const styles = StyleSheet.create({
   meta: { color: '#5E7088', fontSize: 13, lineHeight: 18 },
   error: { color: '#A32020', fontSize: 14, lineHeight: 20 },
   success: { color: '#0F7A45', fontSize: 14, lineHeight: 20 },
+  areaButton: { minHeight: 46, borderRadius: 11, alignItems: 'center', justifyContent: 'center', backgroundColor: '#0F4C81' },
+  areaButtonPressed: { opacity: 0.82 },
+  areaButtonText: { color: '#FFFFFF', fontSize: 15, fontWeight: '700' },
 });
